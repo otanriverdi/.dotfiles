@@ -1,0 +1,18 @@
+autoload -Uz compinit
+compinit
+
+source ~/.config/zsh/.startup # keep at the top
+source ~/.config/zsh/.functions
+source ~/.config/zsh/.plugins
+
+# exports
+export EDITOR="nvim"
+
+# history file for autocomplete
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
+# execute
+neofetch

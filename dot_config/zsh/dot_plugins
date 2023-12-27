@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+source ~/.config/zsh/catppuccin-zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+export ZVM_INIT_MODE=sourcing
+source ~/.config/zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh

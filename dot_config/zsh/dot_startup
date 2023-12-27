@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+eval "$(starship init zsh)"
+
+# fnm
+export PATH="/home/otrv/.local/share/fnm:$PATH"
+eval "`fnm env`"
+
+eval $(keychain --eval --quiet --nogui id_ed25519)
+
