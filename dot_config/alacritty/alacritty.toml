@@ -1,0 +1,14 @@
+import = ["/home/otrv/.config/alacritty/mocha.toml"]
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 10
+
+[font.normal]
+family = "BerkeleyMono Nerd Font Mono"
+
+[window.padding]
+x = 5
+y = 5
