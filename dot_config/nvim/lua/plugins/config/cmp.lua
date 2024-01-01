@@ -1,144 +1,138 @@
 return {
-	{
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
-		dependencies = {
-			"LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
-			"hrsh7th/cmp-nvim-lua",
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-		},
-		config = function()
-			local cmp = require("cmp")
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      "LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+    },
+    config = function()
+      local cmp = require("cmp")
 
-			vim.o.completeopt = "menu,menuone,noselect"
+      vim.o.completeopt = "menu,menuone,noselect"
 
-			local function border(hl_name)
-				return {
-					{ "╭", hl_name },
-					{ "─", hl_name },
-					{ "╮", hl_name },
-					{ "│", hl_name },
-					{ "╯", hl_name },
-					{ "─", hl_name },
-					{ "╰", hl_name },
-					{ "│", hl_name },
-				}
-			end
+      local function border(hl_name)
+        return {
+          { "╭", hl_name },
+          { "─", hl_name },
+          { "╮", hl_name },
+          { "│", hl_name },
+          { "╯", hl_name },
+          { "─", hl_name },
+          { "╰", hl_name },
+          { "│", hl_name },
+        }
+      end
 
-			local options = {
-				window = {
-					completion = {
-						border = border("CmpBorder"),
-						winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
-						scrollbar = false,
-					},
-					documentation = {
-						border = border("CmpDocBorder"),
-					},
-				},
-				snippet = {
-					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
-					end,
-				},
-				formatting = {
-					format = function(_, vim_item)
-						vim_item.kind = string.format("%s", vim_item.kind)
-						return vim_item
-					end,
-				},
-				experimental = {
-					ghost_text = false,
-				},
-				mapping = {
-					["<C-p>"] = cmp.mapping.select_prev_item(),
-					["<C-n>"] = cmp.mapping.select_next_item(),
-					["<C-d>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
-					["<C-Space>"] = cmp.mapping.complete(),
-					["<C-e>"] = cmp.mapping.close(),
-					["<CR>"] = cmp.mapping.confirm({
-						behavior = cmp.ConfirmBehavior.Replace,
-						select = false,
-					}),
-					["<m-a>"] = cmp.mapping(function()
-						vim.api.nvim_feedkeys(
-							vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
-							"n",
-							true
-						)
-					end),
-					["<Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item()
-						elseif require("luasnip").expand_or_jumpable() then
-							vim.fn.feedkeys(
-								vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true),
-								""
-							)
-						else
-							fallback()
-						end
-					end, {
-						"i",
-						"s",
-					}),
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif require("luasnip").jumpable(-1) then
-							vim.fn.feedkeys(
-								vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true),
-								""
-							)
-						else
-							fallback()
-						end
-					end, {
-						"i",
-						"s",
-					}),
-				},
-				sources = {
-					{ name = "luasnip" },
-					{ name = "nvim_lsp" },
-					{ name = "nvim_lua" },
-					{ name = "buffer" },
-					{ name = "path" },
-				},
-			}
+      local options = {
+        window = {
+          completion = {
+            border = border("CmpBorder"),
+            winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
+            scrollbar = false,
+          },
+          documentation = {
+            border = border("CmpDocBorder"),
+          },
+        },
+        snippet = {
+          expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+          end,
+        },
+        formatting = {
+          format = function(_, vim_item)
+            vim_item.kind = string.format("%s", vim_item.kind)
+            return vim_item
+          end,
+        },
+        experimental = {
+          ghost_text = false,
+        },
+        mapping = {
+          ["<C-p>"] = cmp.mapping.select_prev_item(),
+          ["<C-n>"] = cmp.mapping.select_next_item(),
+          ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.close(),
+          ["<CR>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = false,
+          }),
+          ["<m-a>"] = cmp.mapping(function()
+            vim.api.nvim_feedkeys(
+              vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
+              "n",
+              true
+            )
+          end),
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif require("luasnip").expand_or_jumpable() then
+              vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+            else
+              fallback()
+            end
+          end, {
+            "i",
+            "s",
+          }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif require("luasnip").jumpable(-1) then
+              vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+            else
+              fallback()
+            end
+          end, {
+            "i",
+            "s",
+          }),
+        },
+        sources = {
+          { name = "luasnip" },
+          { name = "nvim_lsp" },
+          { name = "nvim_lua" },
+          { name = "buffer" },
+          { name = "path" },
+        },
+      }
 
-			cmp.setup(options)
-		end,
-	},
-	{
-		"L3MON4D3/LuaSnip",
-		dependencies = { "rafamadriz/friendly-snippets" },
-		config = function()
-			local luasnip = require("luasnip")
+      cmp.setup(options)
+    end,
+  },
+  {
+    "L3MON4D3/LuaSnip",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    config = function()
+      local luasnip = require("luasnip")
 
-			local options = {
-				history = true,
-				updateevents = "TextChanged,TextChangedI",
-			}
+      local options = {
+        history = true,
+        updateevents = "TextChanged,TextChangedI",
+      }
 
-			luasnip.config.set_config(options)
-			require("luasnip.loaders.from_vscode").lazy_load({ paths = vim.g.luasnippets_path or "" })
-			require("luasnip.loaders.from_vscode").lazy_load()
+      luasnip.config.set_config(options)
+      require("luasnip.loaders.from_vscode").lazy_load({ paths = vim.g.luasnippets_path or "" })
+      require("luasnip.loaders.from_vscode").lazy_load()
 
-			vim.api.nvim_create_autocmd("InsertLeave", {
-				callback = function()
-					if
-						require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-						and not require("luasnip").session.jump_active
-					then
-						require("luasnip").unlink_current()
-					end
-				end,
-			})
-		end,
-	},
+      vim.api.nvim_create_autocmd("InsertLeave", {
+        callback = function()
+          if
+            require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+            and not require("luasnip").session.jump_active
+          then
+            require("luasnip").unlink_current()
+          end
+        end,
+      })
+    end,
+  },
 }

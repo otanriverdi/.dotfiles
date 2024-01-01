@@ -2,7 +2,7 @@ local opt = vim.opt
 local g = vim.g
 
 opt.laststatus = 3 -- global statusline
-opt.showmode = false
+opt.showmode = true
 
 opt.clipboard = "unnamedplus"
 opt.cursorline = true
@@ -58,7 +58,6 @@ opt.scrolloff = 8
 
 g.mapleader = " "
 g.maplocalleader = " "
-
 local default_providers = {
   "node",
   "perl",
